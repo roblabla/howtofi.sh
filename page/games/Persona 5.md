@@ -14,7 +14,7 @@ Fish Name | Fish Picture (shadow) | Fish Picture (Third Eye) | Points
 test | picture1 | picture2 | 100
 
 
-<model-viewer src="/uploads/games/Persona 5/fish1.gltf" camera-controls touch-action="pan-y"></model-viewer>
+<<ModelViewer("/uploads/games/Persona 5/fish1.gltf")>>
 
 
 ## Rewards
