@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="viewport" content="width=device-width">
+  {{#sprockets_stylesheet_tag}}app{{/sprockets_stylesheet_tag}}
+  {{#sprockets_stylesheet_tag}}print print{{/sprockets_stylesheet_tag}}
+
+
+  {{#css}}<link rel="stylesheet" type="text/css" href="{{custom_css}}" media="all">{{/css}}
+  {{#noindex}}<meta name="robots" content="noindex, nofollow" />{{/noindex}}
+
+  <script>
+  var criticMarkup = '{{critic_markup}}';
+	var baseUrl = '{{base_url}}';
+  var showLocalTime = {{{show_local_time}}};
+	var uploadDest = 'uploads';
+	var perPageUploads = '{{per_page_uploads}}';
+	if (perPageUploads == 'true') {
+	  uploadDest = uploadDest + window.location.pathname.replace(/.*gollum\/[-\w]+\//, "/").replace(/\.[^/.]+$/, "").replace(baseUrl, "")
+	}
+	{{#page}}
+	  var pageFullPath = '{{escaped_url_path}}';
+    var pageFormat   = '{{format}}';
+	{{/page}}
+  {{#has_search_terms}}
+    var searchTerms  = [{{#search_terms}}'{{.}}', {{/search_terms}}
+    ];
+  {{/has_search_terms}}
+  {{#is_create_page}}
+    var default_markup = '{{default_markup}}';
+  {{/is_create_page}}
+  {{#has_editor}}
+     var default_keybinding = '{{default_keybinding}}';
+  {{/has_editor}}
+
+  </script>
+  {{#sprockets_javascript_tag}}app{{/sprockets_javascript_tag}}
+  {{#has_editor}}
+  {{#sprockets_javascript_tag}}editor{{/sprockets_javascript_tag}}
+  {{/has_editor}}
+  
+  {{#mathjax}}
+  <script type="text/javascript">
+    window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+      displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+      processEscapes: true,
+      autoload: {
+        color: [],
+        colorv2: ['color']
+      },
+      packages: {'[+]': ['noerrors']}
+    },
+    options: {
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process',
+      safeOptions: {
+        allow: {
+          //
+          //  Values can be "all", "safe", or "none"
+          //
+          URLs:    'safe',
+          classes: 'none',
+          cssIDs:  'none',
+          styles:  'none',
+        },
+      },
+    },
+    loader: {
+      load: ['[tex]/noerrors', 'ui/safe']
+    },
+  };
+  </script>
+  {{#mathjax_config}}
+  <script type="text/javascript" src="{{mathjax_config_path}}"></script>
+  {{/mathjax_config}}
+  <script async src="{{mathjax_js}}"></script>
+  {{/mathjax}}
+  
+  {{#mermaid}}
+  <script>
+  var mermaid_conf = {
+    startOnLoad: true,
+    securityLevel: 'sandbox'
+  };
+  </script>
+  {{/mermaid}}
+  
+  {{#js}}<script type="text/javascript" src="{{custom_js}}"></script>{{/js}}
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.0.1/model-viewer.min.js"></script>
+
+  {{#mermaid}}
+  {{#sprockets_javascript_tag}}gollum.mermaid.js{{/sprockets_javascript_tag}}
+  <script>
+    mermaid.initialize(mermaid_conf);
+  </script>
+  {{/mermaid}}
+  
+  <title>{{title}}</title>
+</head>
+<body>
+<div class="container-lg clearfix">
+{{{yield}}}
+</div>
+</body>
+</html>
+
