@@ -20,3 +20,12 @@ module Gollum
 end
 
 Precious::App.set(:wiki_options, wiki_options)
+
+class Precious::App
+  before do
+    if request.has_header?("HTTP_X_TOKEN_SUBJECT") then
+      name = request.get_header("HTTP_X_TOKEN_SUBJECT").split("/").last
+      session["gollum.author"] = {name: name}
+    end
+  end
+end
