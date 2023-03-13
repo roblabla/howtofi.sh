@@ -1,9 +1,13 @@
 ![Persona 5](/uploads/games/Persona 5/logo.jpg)
 
-Persona 5 (and by extension, Persona 5 Royal) has a fairly interesting fishing
-mini-game.
+# Unlocking
 
+In Persona 5, fishing can be done at Ishigaya. There are two ways to unlock this
+locations:
 
+- You can accept Ryuji Sakamato's invitation, that comes on the July 6th.
+- It can be discovered by reading the book "Fishpond spotter", which can be
+  bought in Taiheido Bookstore in Shibuya from July 16th.
 
 # Data
 
@@ -13,8 +17,6 @@ Fish Name | Fish Picture (shadow) | Fish Picture (Third Eye) | Points
 ----------|-----------------------|--------------------------|----------
 test | picture1 | picture2 | 100
 
-
-<<ModelViewer("/uploads/games/Persona 5/fish0213.gltf")>>
 <<ModelViewer("/uploads/games/Persona 5/fish0214.gltf")>>
 <<ModelViewer("/uploads/games/Persona 5/fish0215.gltf")>>
 <<ModelViewer("/uploads/games/Persona 5/fish0216.gltf")>>
