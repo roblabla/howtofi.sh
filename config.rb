@@ -19,6 +19,12 @@ module Gollum
   end
 end
 
+credentials = Rugged::Credentials::SshKey(username: 'git', privatekey: '/ssh_key')
+Gollum::Hook.register(:post_commit, :hook_id) do |committer, sha1|
+  committer.wiki.repo.git.pull('gh', committer.wiki.ref, credentials: credentials)
+  committer.wiki.repo.git.push('gh', committer.wiki.ref, credentials: credentials)
+end
+
 Precious::App.set(:wiki_options, wiki_options)
 
 class Precious::App
