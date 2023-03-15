@@ -19,38 +19,40 @@ module Gollum
   end
 end
 
-def my_pull(git, remote, branch, options = {})
-  branch = "refs/heads/#{branch}" unless branch =~ /^refs\/heads\//
-  r = git.repo.remotes[remote]
-  r.fetch([branch], **options)
+Gollum::Git::Git.class_eval {
+  def my_pull(remote, branch, options = {})
+    branch = "refs/heads/#{branch}" unless branch =~ /^refs\/heads\//
+    r = @repo.remotes[remote]
+    r.fetch([branch], **options)
 
-  branch_name = branch.match(/^refs\/heads\/(.*)/)[1]
-  remote_name = remote.match(/^(refs\/heads\/)?(.*)/)[2]
-  remote_ref = git.repo.branches["#{remote_name}/#{branch_name}"].target
-  local_ref = git.repo.branches[branch].target
+    branch_name = branch.match(/^refs\/heads\/(.*)/)[1]
+    remote_name = remote.match(/^(refs\/heads\/)?(.*)/)[2]
+    remote_ref = @repo.branches["#{remote_name}/#{branch_name}"].target
+    local_ref = @repo.branches[branch].target
 
-  # If local_ref is a descendant of remote_ref, do nothing!
-  if repo.descendant_of?(local_ref, remote_ref) then
-    return
+    # If local_ref is a descendant of remote_ref, do nothing!
+    if repo.descendant_of?(local_ref, remote_ref) then
+      return
+    end
+
+    # Otherwise, merge. Note that we _may_ want to rebase instead for linear
+    # history, but that seems to be a fair bit more complicated.
+    index = @repo.merge_commits(local_ref, remote_ref)
+    options = { author: Actor.default_actor.to_h,
+      committer:  Actor.default_actor.to_h,
+      message:    "Merged branch #{branch} of #{remote}.",
+      parents: [local_ref, remote_ref],
+      tree: index.write_tree(@repo),
+      update_ref: branch
+    }
+    Rugged::Commit.create @repo, options
+    @repo.checkout(@repo.head.name, :strategy => :force) if !@repo.bare? && branch == @repo.head.name
   end
-
-  # Otherwise, merge. Note that we _may_ want to rebase instead for linear
-  # history, but that seems to be a fair bit more complicated.
-  index = git.repo.merge_commits(local_ref, remote_ref)
-  options = { author: Actor.default_actor.to_h,
-    committer:  Actor.default_actor.to_h,
-    message:    "Merged branch #{branch} of #{remote}.",
-    parents: [local_ref, remote_ref],
-    tree: index.write_tree(@repo),
-    update_ref: branch
-  }
-  Rugged::Commit.create @repo, options
-  @repo.checkout(@repo.head.name, :strategy => :force) if !@repo.bare? && branch == @repo.head.name
-end
+}
 
 credentials = Rugged::Credentials::SshKey.new(username: 'git', privatekey: '/ssh_key')
 Gollum::Hook.register(:post_commit, :hook_id) do |committer, sha1|
-  my_pull(committer.wiki.repo.git, 'gh', committer.wiki.ref, credentials: credentials)
+  committer.wiki.repo.git.my_pull('gh', committer.wiki.ref, credentials: credentials)
   committer.wiki.repo.git.push('gh', committer.wiki.ref, credentials: credentials)
 end
 
