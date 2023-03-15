@@ -13,19 +13,17 @@ locations:
 
 ## Fishes
 
-Fish Name | Fish Picture (shadow) | Fish Picture (Third Eye) | Points
-----------|-----------------------|--------------------------|----------
-test | picture1 | picture2 | 100
-
-<<ModelViewer("/uploads/games/Persona 5/fish0214.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0215.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0216.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0217.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0218.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0219.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0220.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0221.gltf")>>
-<<ModelViewer("/uploads/games/Persona 5/fish0222.gltf")>>
+Fish Name | Fish Model | Points
+----------|--------------------------|----------
+unknown0 | <<ModelViewer("/uploads/games/Persona 5/fish0214.gltf")>> | unk
+unknown1 | <<ModelViewer("/uploads/games/Persona 5/fish0215.gltf")>> | unk
+unknown2 | <<ModelViewer("/uploads/games/Persona 5/fish0216.gltf")>> | unk
+unknown3 | <<ModelViewer("/uploads/games/Persona 5/fish0217.gltf")>> | unk
+unknown4 | <<ModelViewer("/uploads/games/Persona 5/fish0218.gltf")>> | unk
+unknown5 | <<ModelViewer("/uploads/games/Persona 5/fish0219.gltf")>> | unk
+unknown6 | <<ModelViewer("/uploads/games/Persona 5/fish0220.gltf")>> | unk
+unknown7 | <<ModelViewer("/uploads/games/Persona 5/fish0221.gltf")>> | unk
+unknown8 | <<ModelViewer("/uploads/games/Persona 5/fish0222.gltf")>> | unk
 
 
 ## Rewards
