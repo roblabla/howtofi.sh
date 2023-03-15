@@ -10,4 +10,3 @@ works in every game in existence.
 ***
 
 ToC coming someday, in the meantime find games [here](/gollum/overview/games/).
-
