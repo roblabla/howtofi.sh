@@ -31,7 +31,7 @@ Gollum::Git::Git.class_eval {
     local_ref = @repo.branches[branch].target
 
     # If local_ref is a descendant of remote_ref, do nothing!
-    if repo.descendant_of?(local_ref, remote_ref) then
+    if @repo.descendant_of?(local_ref, remote_ref) then
       return
     end
 
